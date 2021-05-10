@@ -2,10 +2,10 @@
 require 'byebug'
 
 class PolyTreeNode
-    attr_reader :parent, :children, :pos
+    attr_reader :parent, :children, :value
 
     def initialize(pos)
-        @position = position
+        @value = pos
         @parent = nil
         @children = [] 
         #childred = KPF.valid_moves.map { |pos| PolyTreeNode.new(pos) }
@@ -80,97 +80,24 @@ def fib_array(n)
     seq << seq[-1] + seq[-2]
 end
 
-p fib_array(5)
+# p fib_array(5)
 
-# 0,0 => [1,2],[]
+# root = PolyTreeNode.new("a")
 
-# root = a
-# a children = [b,c]
+# b = PolyTreeNode.new("b")
+# c = PolyTreeNode.new("c")
+# d = PolyTreeNode.new("d")
+# e = PolyTreeNode.new("e")
+# f = PolyTreeNode.new("f")
+# g = PolyTreeNode.new("g")
+#         #    a 
+#         #   b c 
+#         # d e f g
+# root.add_child(b)    
+# root.add_child(c)  
+# b.add_child(d)
+# b.add_child(e)  
+# c.add_child(f)  
+# c.add_child(g)
 
-# b parent of d
-# d child
-
-# d.parent = b
-# d.parent = nil
-
-root = PolyTreeNode.new("a")
-
-b = PolyTreeNode.new("b")
-c = PolyTreeNode.new("c")
-d = PolyTreeNode.new("d")
-e = PolyTreeNode.new("e")
-f = PolyTreeNode.new("f")
-g = PolyTreeNode.new("g")
-        #    a
-        #   b c 
-        # d e f g
-root.add_child(b)    
-root.add_child(c)  
-b.add_child(d)
-b.add_child(e)  
-c.add_child(f)  
-c.add_child(g)
-
-p root.bfs(g)
-# ----------------------------------------------------------
-=begin 
-----------------------------------------------------------
-STACK 1: "a"
-    def dfs("d")
-        return nil if self.value == nil
-        return self.value if self.value == "d" # root = "a"
-        self.children.each do |child| # child = "b"
-            search_result = child.dfs("d")
-            return search_result if search_result != nil
-        end
-        nil
-    end
-----------------------------------------------------------
-STACK 2: "a"
-----------------------------------------------------------
-def dfs("d")
-    return nil if self.value == nil
-    return self.value if self.value == "d" # root = "a"
-    self.children.each do |child| #
-        search_result = child.dfs("d")
-        return search_result if search_result != nil
-    end
-    nil
-end
-----------------------------------------------------------
-STACK 3: "a"
-----------------------------------------------------------
-def dfs("d")
-    return nil if self.value == nil
-    return self.value if self.value == "d" # root = "a"
-    self.children.each do |child| #
-        search_result = child.dfs("d")
-        return search_result if search_result != nil
-    end
-    nil
-end
-----------------------------------------------------------
-STACK 1: "a"
-----------------------------------------------------------
-def dfs("d")
-    return nil if self.value == nil
-    return self.value if self.value == "d" # root = "a"
-    self.children.each do |child| #
-        search_result = child.dfs("d")
-        return search_result if search_result != nil
-    end
-    nil
-end
-----------------------------------------------------------
-STACK 1: "a"
-----------------------------------------------------------
-def dfs("d")
-    return nil if self.value == nil
-    return self.value if self.value == "d" # root = "a"
-    self.children.each do |child| #
-        search_result = child.dfs("d")
-        return search_result if search_result != nil
-    end
-    nil
-end
-=end
+# p root.bfs(g)
