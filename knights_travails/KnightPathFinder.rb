@@ -29,8 +29,8 @@ class KnightPathFinder
 
     def initialize(pos)
         @root = PolyTreeNode.new(pos)
+        @start_pos = pos
         @considered_positions = [ @root ]
-
     end
     
     def find_path(pos)
@@ -97,26 +97,36 @@ class KnightPathFinder
         counter.values.any? { |v| v > 1}
     end
 
+
+    def find_path(end_pos)
+        queue = [@root]
+        until queue.empty? 
+            current = queue.shift
+            if current.value == end_pos   
+                return trace_path_back(current)
+            else
+                queue += current.children
+            end
+        end
+        nil
+    end
+
+    def trace_path_back(end_node)
+        path_back = [end_node]
+        until path_back[-1].parent == nil 
+            path_back << path_back[-1].parent
+        end
+        path_back.reverse.map(&:value)
+    end
 end
 
-game = KnightPathFinder.new([0,0])
-# p game.find_path([0,0])
+# game = KnightPathFinder.new([0,0])
 
-# p game.considered_positions
-# p game.new_move_positions([0,0])
-# p game.considered_positions
+# game.build_move_tree
+# p game.find_path([7,7])
 
-game.build_move_tree
-p game.repeats?
-game.prints
-
-# tests
-
-# p game
-# p game.root
-
-# child = PolyTreeNode.new([1,2])
-# root = game.root
-# game.root.add_child(child)
-# p child.parent()
-# p game.root
+kpf = KnightPathFinder.new([0, 0])
+kpf.build_move_tree
+p kpf.find_path([7, 6]) # => [[0, 0], [1, 2], [2, 4], [3, 6], [5, 5], [7, 6]]
+kpf.build_move_tree
+p kpf.find_path([6, 2]) # => [[0, 0], [1, 2], [2, 0], [4, 1], [6, 2]]
